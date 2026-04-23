@@ -1,0 +1,62 @@
+
+.form-control,
+.form-select {
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Campos requeridos */
+.form-label::after {
+    content: ' *';
+    color: #dc3545;
+}
+
+.form-label.optional::after {
+    content: '';
+}
+
+/* Password toggle */
+.input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+.input-group-text button {
+    border: none;
+    background: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.input-group-text button:hover {
+    color: #333;
+}
+

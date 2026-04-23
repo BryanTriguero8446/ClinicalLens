@@ -1,0 +1,70 @@
+
+.dashboard-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(20px, -20px);
+}
+
+.stat-card .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+.stat-card .display-6 {
+    font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Colores de riesgo */
+.badge.bg-riesgo-bajo {
+    background-color: #28a745 !important;
+}
+
+.badge.bg-riesgo-medio {
+    background-color: #ffc107 !important;
+    color: #000;
+}
+
+.badge.bg-riesgo-alto {
+    background-color: #dc3545 !important;
+}
+
+.list-group-item {
+    border-left: 4px solid transparent;
+    transition: all 0.2s;
+}
+
+.list-group-item:hover {
+    border-left-color: var(--primary-color);
+    background-color: #f9f9f9;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 1rem;
+}

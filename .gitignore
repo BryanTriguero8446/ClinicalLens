@@ -1,0 +1,72 @@
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ===== DJANGO =====
+*.log
+local_settings.py
+db.sqlite3
+/media/
+/staticfiles/
+
+# ===== ENVIRONMENT =====
+.env
+.env.local
+.env.*.local
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+.directory
+
+# ===== ML MODELS =====
+*.pkl
+*.joblib
+
+# ===== SECRETS =====
+secrets.json
+private_key.pem
+
+# ===== NODE (si usas npm después) =====
+node_modules/
+package-lock.json
+
+# ===== TESTS =====
+.coverage
+htmlcov/
+.pytest_cache/
+
+# ===== MISC =====
+*.bak
+*.tmp
+.cache/

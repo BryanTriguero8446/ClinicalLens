@@ -1,0 +1,141 @@
+html
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - ClinicalLens{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1><i class="fas fa-chart-line"></i> Bienvenido, {{ user.nombre }}!</h1>
+        <p class="text-muted">Panel de Control - Predicción de Enfermedades Crónicas</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'paciente:nuevo_registro' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Nuevo Registro Clínico
+        </a>
+    </div>
+</div>
+<!-- TARJETAS DE RESUMEN -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-heartbeat"></i> Registros</h5>
+                <p class="card-text display-6">{{ registros_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-exclamation-triangle"></i> Alertas</h5>
+                <p class="card-text display-6">{{ alertas_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-fire"></i> Riesgo Alto</h5>
+                <p class="card-text display-6">{{ riesgo_alto_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-check-circle"></i> Riesgo Bajo</h5>
+                <p class="card-text display-6">{{ riesgo_bajo_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ÚLTIMOS REGISTROS -->
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-history"></i> Últimos Registros</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>IMC</th>
+                            <th>Glucosa</th>
+                            <th>Presión</th>
+                            <th>Riesgo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in registros %}
+                            <tr>
+                                <td>{{ registro.fecha_registro|date:"d/m/Y" }}</td>
+                                <td>{{ registro.imc|floatformat:1 }}</td>
+                                <td>{{ registro.glucosa }} mg/dL</td>
+                                <td>{{ registro.presion_sistolica }}/{{ registro.presion_diastolica }}</td>
+                                <td>
+                                    <span class="badge bg-{{ registro.prediccion.get_color }}">
+                                        {{ registro.prediccion.nivel_riesgo|upper }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{% url 'paciente:ver_registro' registro.id %}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">
+                                    No hay registros aún. 
+                                    <a href="{% url 'paciente:nuevo_registro' %}">Crear uno</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ÚLTIMAS ALERTAS -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0"><i class="fas fa-bell"></i> Alertas</h5>
+            </div>
+            <div class="list-group list-group-flush">
+                {% for alerta in alertas %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ alerta.tipo }}</h6>
+                            <small class="text-muted">{{ alerta.fecha|timesince }} atrás</small>
+                        </div>
+                        <p class="mb-1">{{ alerta.descripcion }}</p>
+                        <small class="text-muted">Nivel: <strong>{{ alerta.nivel }}</strong></small>
+                    </div>
+                {% empty %}
+                    <div class="list-group-item text-center text-muted py-3">
+                        <i class="fas fa-check-circle"></i> Sin alertas
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/charts.js' %}"></script>
+{% endblock %}
+
